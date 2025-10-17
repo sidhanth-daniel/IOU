@@ -1,0 +1,430 @@
+/* FINAL: Card with realistic sheen (paste this in place of your previous .card block) */
+
+.cardfeature {
+  height: 500px;
+  width: 100vw;
+}
+
+/* THIS CSS IS FOR THE CARD (only affects .card and descendants) */
+.card {
+  width: 340px;
+  height: 210px;
+  border-radius: 18px;
+  position: relative;
+  padding: 22px;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+
+  /* layered background for depth */
+  background:
+    radial-gradient(1200px 400px at 10% 0%, rgba(255,255,255,0.06), transparent 8%),
+    linear-gradient(135deg, #147ef6 0%, #3b82f6 45%, #68a7ff 100%);
+
+  /* inner card sheen and depth */
+  box-shadow:
+    0 28px 50px rgba(15,25,40,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -8px 24px rgba(0,0,0,0.12);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* float animation */
+  animation: floatY 3.6s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Background "IOU" watermark */
+.card::before {
+  content: "IOU";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-size: 8rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.08); /* very faint */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* breathing shadow under the card */
+.card::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -18px;
+  width: 68%;
+  height: 34px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.40), rgba(0,0,0,0.06));
+  filter: blur(12px);
+  z-index: 0;
+  pointer-events: none;
+  animation: shadowPulse 3.6s ease-in-out infinite;
+}
+
+
+/* content stacks above sheen and background */
+.card > * { position: relative; z-index: 3; }
+
+/* top row: IOU left, VIRTUAL right */
+.card-top {
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* IOU top-left — bold, premium, embossed look */
+.brand-left {
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.3),
+    0 -1px 2px rgba(0,0,0,0.3);
+}
+
+/* VIRTUAL top-right — elegant, spaced, modern */
+.brand-right {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #e0f0ff;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.2),
+    0 2px 3px rgba(0,0,0,0.25);
+  background: rgba(255,255,255,0.02);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* gentle floating motion */
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* shadow pulse synced with float */
+@keyframes shadowPulse {
+  0%,100% { transform: translateX(-50%) translateY(0) scaleX(1); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(6px) scaleX(1.12); opacity: 0.85; }
+}
+
+/* small responsive tweak */
+@media (max-width:420px) {
+  .card { width: 280px; height: 175px; padding: 18px; border-radius: 14px; }
+  .brand-left { font-size: 1rem; }
+  .brand-right { font-size: 0.82rem; letter-spacing: 3px; }
+  .card .sheen {
+    left: -50%;
+    top: -35%;
+    width: 240%;
+    height: 180%;
+    filter: blur(3px) saturate(1.02);
+  }
+}
+
+.card .sheen {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+      120deg,
+      rgba(255,255,255,0) 3%,
+      rgba(255,255,255,0.25) 90%,
+      rgba(255,255,255,0.6) 70%,
+      rgba(255,255,255,0.25) 80%,
+      rgba(255,255,255,0) 100%
+    );
+  transform: skewX(-20deg) translateX(0);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.7;
+  filter: blur(3px);
+  animation: smoothSheen 5s linear infinite;
+  mix-blend-mode: screen; /* adds realistic light blending */
+}
+
+@keyframes smoothSheen {
+  0%   { transform: skewX(-20deg) translateX(-120%); }
+  100% { transform: skewX(-20deg) translateX(320%); }
+}
+
+/* For emojis in phone taps and cursor taps*/
+@keyframes floatUp {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to   { transform: translateY(-80px) scale(1.6) rotate(20deg); opacity: 0; }
+}
+
+
+/* Features section */
+
+.features {
+    padding: 6rem 0;
+    background: white;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.section-header p {
+    font-size: 1.2rem;
+    color: #4a5568;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6 0%, #3b82f6 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.feature-icon div {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4688f2 0%);
+    position: relative;
+}
+
+.icon-lightning::before {
+    content: '⚡';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.icon-shield::before {
+    content: '🛡️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.icon-globe::before {
+    content: '🌍';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.icon-message::before {
+    content: '💬';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.icon-mobile::before {
+    content: '📱';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.icon-wallet::before {
+    content: '💰';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.feature-card p {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* Bank grade security feature*/
+
+.bankgradesecurity {
+  height: 500px;
+  width: 100vw;
+  background: black;
+  position: relative;
+}
+
+.bank-bg img {
+  object-fit: cover; /* makes it fill its container nicely */
+}
+
+@media (max-width: 767px) {
+  .bank-bg {
+    position: absolute;  /* keep it absolute */
+    z-index: 0;          /* send behind */
+    width: 100%;         /* make it full width on mobile */
+    left: 0;
+    top: 0;
+  }
+  .bankgradesecurity .container {
+    position: relative;  /* create stacking context */
+    z-index: 1;          /* text stays on top */
+  }
+}
+
+/* Fee structure */
+
+        section.feestructure {
+            --accent: blue;
+            font-family: Inter, ui-sans-serif, system-ui, Arial, sans-serif;
+            background: black;
+            position: relative;
+            gap: 18px;
+        }
+
+        .fee {
+            background: color-mix(in srgb, oklch(1 0 0) 80%, transparent);
+            color: black;
+            backdrop-filter: blur(6px);
+            width: 80%;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            margin-top: 40px;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            transition: transform .25s ease, box-shadow .25s ease
+        }
+
+        .writeup {
+          margin-top: 30px;
+          display: flex;
+          justify-content: center;
+          text-align: justify;
+        }
+
+        .fee:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12)
+        }
+
+        .icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            background: color-mix(in srgb, var(--accent) 10%, transparent)
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: block;
+            fill: currentColor;
+            color: color-mix(in srgb, var(--accent) 80%, black)
+        }
+
+        .stat-value {
+            font-size: 1.625rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 6px
+        }
+
+        /* Fee section */
+        section.feestructure {
+            height: auto;
+            position: relative;
+        }
+
+        section.feestructure .backdrop {
+            background-image: url(../images/glitter.png), linear-gradient(180deg, #ffffff 0%, #3b82f6 20%, #3b82f6 80%, #ffffff 100%); 
+            background-repeat: repeat, no-repeat; 
+            background-size: 120px, cover; 
+            background-blend-mode: screen;
+        }
+
+        section.feestructure .fee-left, .fee-center, .fee-right{
+            min-height: 850px;     /* desktop visual height preserved */
+            height: auto;
+            border-radius: 50px;
+        }
+        .fee-left {
+            background-image: url("../images/Pirated images/1@1.5x.jpg");
+            background-size: cover;
+        }
+        .fee-center {
+            background-image: url("../images/Pirated images/2@1.5x.jpg");
+            background-size: cover;
+        }
+        .fee-right {
+            background-image: url("../images/Pirated images/3@1.5x.jpg");
+            background-size: cover;
+        }
