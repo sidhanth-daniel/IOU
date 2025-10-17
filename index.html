@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IOU | The First Group-Centric Payment Application</title>
+  <link rel="icon" type="image/x-icon" sizes="196x196" href="images/IOU.png">
+  <css>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style note="scrollincentive">
+      .scrollincentive {
+        animation: bob 1.5s ease-in-out infinite;
+      }
+
+      @keyframes bob {
+
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(12px);
+        }
+      }
+
+      .scrollincentive::after {
+        content: '';
+        display: block;
+        background: url("images/downarrow.png") no-repeat center center;
+        background-size: contain;
+        width: 25px;
+        height: 25px;
+        margin: 0 auto;
+        /* ✅ centers the arrow image block */
+      }
+
+      .scrollincentive {
+        position: fixed;
+        bottom: 1%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 16px;
+        background: none;
+        text-align: center;
+        /* ✅ centers any text + arrow */
+      }
+    </style>
+    <link rel="stylesheet" href="css/footerandheader.css">
+    <style note="header">
+      header {
+        opacity: 0;
+        transform: translateY(-80px);
+        animation: fadeSlideIn 1s forwards;
+      }
+
+      @keyframes fadeSlideIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+    <style note="hero">
+      .outline-button:hover {
+        transform: translateY(-3px);
+      }
+
+      .secondary-button:hover {
+        transform: translateY(-3px);
+      }
+
+      .primary-button:hover {
+        transform: translateY(-3px);
+      }
+
+      @keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+
+        40% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+
+        60% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+          transform: translateY(-30px) rotate(180deg);
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="css/betasection.css">
+    <link rel="stylesheet" href="css/waitlist.css">
+  </css>
+</head>
+
+<header id="header" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" onclick="reload()" id="logo">
+      <img src="images/header/Header_IOU-removebg-preview.png" alt="IOU" style="height: 50px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button style="justify-content: center; float: right; width: 10rem; height: 50px; margin-right: 20px;"
+            class="secondary-button nav-link" onclick="showprivacy()">
+            Privacy
+          </button>
+          <div id="privacypoliciesinfo"
+            style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:1000;">
+            <div class="privacy-policy"
+              style="background:#fff; color:#333; padding:20px; border-radius:10px; width:60%; margin:10% auto; box-shadow:0 8px 16px rgba(0,0,0,0.3); font-family:Arial,sans-serif;">
+              <h2>Privacy Policy</h2>
+              <p style="font-size: 12px;"><b>Last updated: 24 September 2025</b>
+
+                Information We Collect
+                We collect account info (name, email), financial info (payment details, transaction history), and usage
+                data (interactions, scans, analytics). For compliance, we may collect ID verification documents.
+
+                How We Use Data
+                Your data is used to process payments, manage group wallets, prevent fraud, communicate updates, and
+                improve the Service.
+
+                Sharing & Security
+                Data may be shared with payment processors, identity verification partners, and service providers under
+                contract. All payment activity is encrypted. We do not sell your personal information.
+
+                Retention & Rights
+                We retain personal and financial data as long as needed for service, legal, and operational purposes.
+
+                Children & Updates
+                IOU is not directed at children under 18.
+
+                Contact: IOUapp@protonmail.com
+                <button onclick="closeprivacy()">Close</button>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button style="justify-content: center; float: right; width: 10rem; height: 50px; margin-right: 20px;"
+            class="secondary-button nav-link" onclick="showterms()">
+            T&C's
+          </button>
+          <div id="termsconditionsinfo"
+            style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:1000;">
+            <div class="terms-and-conditions"
+              style="background:#fff; color:#333; padding:20px; border-radius:10px; width:60%; margin:10% auto; box-shadow:0 8px 16px rgba(0,0,0,0.3); font-family:Arial,sans-serif;">
+              <h2>Terms & Conditions</h2>
+              <p style="font-size: 12px;"><b>Last updated: 24 September 2025</b>
+
+                Agreement & Eligibility
+                By using IOU’s website, apps, or services (“Service”), you agree to these Terms. You must be at least 18
+                years old (or the age of majority in your jurisdiction) and provide accurate information.
+
+                Group Wallets & Payments
+                IOU allows groups to pool funds into shared wallets and facilitates transactions via virtual/group
+                cards. Payments are authorized by users and processed through trusted third-party providers.
+
+                Fees, Refunds & Disputes
+                Any applicable fees will be disclosed at the time of payment. Refunds or chargebacks follow processor
+                rules; IOU may adjust group wallets to cover disputed payments.
+
+                Liability & Governing Law
+                IOU is not liable for indirect, incidental, or consequential damages. Direct liability is limited to
+                amounts paid to IOU in the 12 months preceding a claim. These Terms are governed by the laws of [Your
+                Jurisdiction].
+
+                Contact: IOUapp@protonmail.com
+                <button onclick="closeterms()">Close</button>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button style="justify-content: center; float: right; width: 10rem; height: 50px; margin-right: 20px;"
+            class="secondary-button nav-link" onclick="togglefaq()">
+            FAQ
+          </button>
+        </li>
+        <li class="nav-item">
+          <button style="height: 50px; width: auto; padding: 0rem 2rem; float: right; margin-right: 20px;"
+            class="primary-button nav-link" onclick="waitlist()">
+            Join Waitlist
+            <div class="button-glow"></div>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<body>
+  <section class="hero">
+    <div class="hero-background">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+        <div class="shape shape-7"></div>
+        <div class="shape shape-8"></div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="title-line">The World's <bold>FIRST</bold></span>
+        <span class="title-line"
+          style="background: linear-gradient(to right, #1F51FF, #00F0FF, #1F51FF); background-clip: text; -webkit-background-clip: text; color: transparent;">Group-Centric</span>
+        <span class="title-line">Payment Application</span>
+      </h1>
+      <p class="hero-subtitle">
+        Our solution allows users to effortlessly pool and spend money in groups. <br><b>Stop stressing, start
+          sharing.</b>
+      </p>
+      <div class="hero-buttons">
+        <button class="primary-button" note="waitlist js in main.js" onclick="waitlist()">
+          <span>Join Waitlist</span>
+          <div class="button-glow"></div>
+        </button>
+        <button class="secondary-button" note="reload js in main.js" onclick="howitworks()">
+          <span>How it works</span>
+          <div class="play-icon"></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="killercase">
+    <div class="maintypography" style="margin-top: 100px;">
+      <span>You are doing it <b style="color: red;">wrong.</b></span>
+    </div>
+
+    <!-- 🟩 Problem 1 -->
+    <div class="problem1">
+      <div class="maintypography" style="color: black; font-size: 35px; padding-bottom: 20px;">
+        Micro-transactions
+      </div>
+      <div class="problem-content" style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
+
+        <!-- 📝 Text (left) -->
+        <div class="typography" style="color: black; flex: 1 1 400px; min-width: 300px; text-align: justify;">
+          <p>
+            Ever called an Uber for the group? <br>
+            Tried sorting who wants what on a shared food order? <br>
+            You spend 10 minutes getting everyone’s choices. Unless you're Eddie Woo, another 10 doing the math.
+            Then you front it, because someone has to, and everyone’s getting impatient.
+            After that comes a series of screenshots, payment links, reminders, and three different apps just to settle
+            one checkout.
+          </p>
+          <ul>
+            <li>Someone always ends up paying first and hoping everyone pays back.</li>
+            <li>Messages get lost, choices change, and you always feel uncertain.</li>
+            <li>Calculations, remembering, and logging into third-party apps ruins the flow.</li>
+            <li>Chasing money feels petty and exhausting.</li>
+          </ul>
+          <p>It shouldn’t take double texts, spreadsheets, or stress to order dinner.</p>
+        </div>
+
+        <!-- 🖼️ Image (right) -->
+        <div class="problem-image"
+          style="flex: 1 1 400px; display: flex; justify-content: center; align-items: center;">
+          <img src="images/problem1.jpg" alt="Group food order"
+            style="max-height: 500px; max-width: 100%; height: auto; display: block;">
+        </div>
+      </div>
+    </div>
+
+    <!-- 🟦 Problem 2 -->
+    <div class="problem2">
+      <div class="maintypography" style="color: black; font-size: 35px; padding: 0px 0 20px;">
+        Large-scale payments
+      </div>
+      <div class="problem-content"
+        style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px; flex-direction: row-reverse;">
+
+        <!-- 📝 Text (right this time) -->
+        <div class="typography" style="color: black; flex: 1 1 400px; min-width: 300px; text-align: justify;">
+          <p>
+            Booking out a karaoke room for a surprise birthday? Or even worse. Rent’s due. Nobody likes the big looming
+            price tags; you don’t want to be left with the bill, but time’s running out.
+          </p>
+          <ul>
+            <li>People promise to transfer later and then forget.</li>
+            <li>Large-scale transfers mean TRX fees, refund headaches, and confusion.</li>
+            <li>Trust dwindles; integrity is uncertain when someone says “IOU”.</li>
+          </ul>
+          <p>
+            If you're lucky, you barely get everything sorted before the due date. After days, constant reminders, and
+            lost money.<br>
+            Let’s be real. Post-transaction financial issues are unnecessary, stressful, and expensive.
+          </p>
+        </div>
+
+        <!-- 🖼️ Image (left this time) -->
+        <div class="problem-image"
+          style="flex: 1 1 400px; display: flex; justify-content: center; align-items: center;">
+          <img src="images/problem2.png" alt="Large scale payments"
+            style="max-height: 500px; max-width: 100%; height: auto; display: block;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="howitworks" id="howitworks" note="css in main.css">
+    <div class="maintypography"><span style="margin: 100px auto 50px auto;" class="title-line">How it works.</span>
+    </div>
+    <div class="container-fluid">
+      <div class="row g-4">
+        <div class="col-12 col-lg-4">
+          <!-- ✅ Added: position: relative; overflow: hidden to make the image stay inside -->
+          <div class="p-3 text-white firstrow-left" style="min-height: 600px; position: relative; overflow: hidden;">
+            <div class="maintypography"
+              style="font-size: 30px; line-height: normal; color: black; margin: 10px 0 10px 0;">
+              Create or join instantly
+            </div>
+            <div class="typography" style="color: black; text-align: justify;">
+              Start a group quickly. Choose the common goal and declare who pays what. It’s that simple.
+              <br><br>
+              Optional parameters such as roles, end dates and recurring payments give your group better control.
+              <br><br>
+              Invite your friends by a QR code, with swift onboarding.
+              <br><br>
+              They can contribute without even downloading the app.
+            </div>
+            <img src="images/box1.png"
+              style="position: absolute; bottom: 0; left: 0; width: 100%; height: 25%; display: block;">
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="p-3 text-white firstrow-center">
+            <div class="maintypography"
+              style="font-size: 30px; line-height: normal; color: black; margin: 10px 0 10px 0;">
+              Pool funds and connect cards
+            </div>
+            <div class="typography" style="color: black; text-align: justify;">
+              Intuitive group wallets are your intermediatory between hundreds of third-party payment
+              applications.<br><br>
+
+              Everything from BNPL to bank wires are authorized and processed in seconds.<br><br>
+
+              It’s the PayID of group finance.
+            </div>
+            <div style="width: 100%; position: relative; display: flex;">
+              <img src="images/box2.png" style="width: 100%; padding-top: 30px; height: auto; display: block;">
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="p-3 text-white firstrow-right">
+            <div class="maintypography"
+              style="font-size: 30px; line-height: normal; color: black; margin: 20px 0 20px 0;">
+              Pay Together
+            </div>
+            <div class="typography" style="color: black; text-align: justify;">
+              After users give consent, a visa virtual card is activated immediately.<br><br>
+
+              Tap your card at checkout, place an Ubereats order online or activate that Netflix subscription.
+            </div>
+            <div style="width: 100%; position: relative; display: flex;">
+              <img src="images/box3.png" style="width: 100%; padding-top: 40px; height: auto; display: block;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row g-4" style="overflow: hidden; margin-top: 1px;">
+        <div class="col-12 col-lg-12">
+          <div class="p-3 text-white secondrow">
+            <div class="maintypography"
+              style="font-size: 30px; line-height: normal; color: black; margin-bottom: 20px;">
+              Not just another app
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px;">
+              <div class="typography"
+                style="color: black; text-align: justify; text-justify: interword; hyphens: auto; flex: 1 1 400px; min-width: 300px;">
+                <p>“Will I get it back?” is a common question.</p>
+                <ul>
+                  <li>
+                    <p>Receiving an informal certification of debt “I’ll shout next time”, has no significance.</p>
+                  </li>
+                  <li>
+                    <p>SplitWise, PayPal pools, Revolut groups and clunky bill-splitting falloffs, <b>don’t cut it.</b>
+                    </p>
+                  </li>
+                </ul>
+                <center>
+                  <p style="font-size: 20px; font-weight: 700;">You need something better.</p>
+                </center>
+                <p>Our app doesn’t beat around the bush. We provide a simple, cost-effective and efficient solution, to
+                  properly streamline your group finances so that you NEVER need ‘some other’ app.</p>
+                <p>You don’t need to send money to someone’s external account and ask yourself that question again.</p>
+                <p>We go to the source of the problem and stop you and others from ever saying “IOU” again.</p>
+              </div>
+              <div class="problem-image"
+                style="flex: 1 1 100px; display: flex; justify-content: center; align-items: center;">
+                <img src="images/landscapephone.png" alt="App illustration"
+                  style="max-height: 70vh; width: auto; margin-left: 20px; display: block;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row g-4" style="margin-top: 5px;">
+        <div class="col-12 col-lg-3">
+          <div class="p-3 text-white thirdrow-left"
+            style="background: linear-gradient(135deg, #3b82f6 0%, #3b82f6 100%);">
+            <div class="maintypography" style="line-height: normal; color: white;">
+              It's all <u>Free!!!</u>
+            </div>
+            <div class="typography" style="text-align: justify; margin-top: 40px;">You lose nothing and gain everything.
+              Credit cards are
+              2.5%. </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-3">
+          <div class="p-3 text-white thirdrow-center">
+            <div class="maintypography" style="font-size: 30px; line-height: normal; color: black;">
+              Insured by financial regulations
+            </div>
+            <div class="typography" style="color: black; text-align: justify; margin-top: 30px;">IOU works with
+              ASIC-regulated
+              institutions and AFSL-licensed partners and follows applicable AU AML/CTF requirements. </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="p-3 text-white thirdrow-right" style="max-height: 400px; overflow: hidden;">
+            <div class="maintypography" style="font-size: 30px; line-height: normal; color: black;">
+              Real-time social framework
+            </div>
+            <div class="typography" style="color: black; text-align: justify; margin: 10px 0px 10px 0;">Talk money
+              in-app.
+
+
+
+              Groups communicate, coordinate, and commit to payments in a single, frictionless feed.
+
+              Live updates: see who joined, approved, or contributed instantly.
+
+              Integrated chat & polls: make decisions, vote, and plan without leaving the app.
+
+              Extensive galleries, notifications, threaded discussions, and much more.</div>
+            <div style="width: 100%; position: relative; display: flex;">
+              <img src="images/phones.png" style="width: 100%; height: auto; display: block;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="waitlist-wrapper position-relative d-flex flex-column align-items-center">
+    <div class="waitlistbackground position-absolute top-0 start-0 w-100 h-100" aria-hidden="true"></div>
+    <section id="join-waitlist" class="join-waitlist position-relative" style="margin-top: 200px;">
+      <form class="email-form" id="email-form" method="POST" action="https://formspree.io/f/movnyaqd">
+        <span>Join the waitlist</span>
+        <div class="email">
+          <input type="email" label="email" name="email" id="email" placeholder="Enter your email" required>
+        </div>
+        <p>What operating system are you using?</p>
+        <label><input type="checkbox" name="iOS operating system"> iOS</label>
+        <label><input type="checkbox" name="Android operating system"> Android</label>
+        <p>Only give your email if <b>YOU</b> want this.</p>
+        <button type="submit">Join Waitlist</button>
+      </form>
+      <div id="thankyou-message" style="display:none; margin-top:1em;">
+        Thanks! You are on the waitlist.
+      </div>
+    </section>
+  </div>
+
+  <section class="features" note="css in betasection.css">
+    <div class="container">
+      <div class="section-header">
+        <div class="maintypography" style="color: black;">Features</div>
+        <p style="margin: 2rem auto 2rem auto;">What makes us different in a good way</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <div class="icon-lightning"></div>
+          </div>
+          <h3>Lightning McQueen</h3>
+          <p>Experience real speed with us, solve money-related problems faster than you can say "I'll pay you back
+            later".
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <div class="icon-shield"></div>
+          </div>
+          <h3>Tap once, you're in.</h3>
+          <p>Our optimized infrastructure promises a frictionless user experience. We prioritize conveniency and
+            efficiency, it's stupidly simple.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <div class="icon-globe"></div>
+          </div>
+          <h3>Use anywhere</h3>
+          <p>Seamlessly perform group payments with any currencies in many countries, our mid-market rate ensures
+            optimal value for your money.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <div class="icon-message"></div>
+          </div>
+          <h3>Instant messaging</h3>
+          <p>Discuss plans, distribute polls & build photo galleries. Similar to Whatsapp but we can
+            actually
+            protect your information. 😱</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <div class="icon-mobile"></div>
+          </div>
+          <h3>Your own accountant</h3>
+          <p>Designed for the mobile generation, settle debts and track expenses immediately through an elaborate
+            ledger at your fingertips. </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <div class="icon-wallet"></div>
+          </div>
+          <h3>Group Wallets</h3>
+          <p>We securely hold your group's funds, allowing instant, hassle-free: deposits, withdrawals and payments for
+            everyone involved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="row cardfeature d-flex flex-column flex-md-row justify-content-center align-items-center"
+    style="--bs-gutter-x: 0rem;">
+    <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
+      <div class="maintypography mb-3">
+        <span>Instant Virtual Cards</span>
+      </div>
+      <p class="typography" style="padding-bottom: 40px;">
+        Get your virtual card issued instantly when joining or creating
+        a group, and start spending right away.
+      </p>
+    </div>
+    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+      <div class="card">
+        <div class="card-top">
+          <div class="brand-left">IOU</div>
+          <div class="brand-right">VIRTUAL</div>
+        </div>
+        <span class="sheen" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bankgradesecurity position-relative">
+    <!-- Left image as background -->
+    <div class="bank-bg position-absolute top-0 start-0 h-100 w-50">
+      <img src="images/chains.png" style="height: 120%; width: auto; filter: contrast(130%);">
+    </div>
+    <!-- Right content -->
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-12 col-md-6 offset-md-6 d-flex flex-column justify-content-center">
+          <div class="maintypography">
+            <span style="background-color: black;">Bank Grade Security</span>
+          </div>
+          <div class="typography" style="background-color: black; margin-top: 10px;"">
+            Protection comes as standard - Our robust technical infrastructure includes: end-to-end AES-256
+            encryption, TLS 1.3 protocols, and specialized HSM-backed management. Your money is guaranteed.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class=" feestructure" note="css in betasection.css">
+            <div class="backdrop">
+              <div class="maintypography">
+                <span style="top: 150px; position: relative;">Money talks</span>
+              </div>
+              <div class="row g-4 feesection"
+                style="color: white; margin: 180px auto auto auto; padding-bottom: 180px;">
+                <div class="col-12 col-lg-4">
+                  <div class="p-3 fee-left">
+                    <div class="maintypography" style="font-size: 30px;">
+                      <span>Cashback schematic</span>
+                    </div>
+                    <div class="fee text-center mx-auto d-flex flex-column align-items-center">
+                      <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 17h4l3-5 4 7 5-13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                            stroke-linejoin="round" fill="none" />
+                        </svg></div>
+                      <div class="stat-value">5.2%</div>
+                      <div class="stat-desc">Average Cashback</div>
+                    </div>
+                    <div class="writeup typography">
+                      <p>Unlike traditional reward programs that cap your earnings, every group transaction offers
+                        unlimited
+                        earning potential with straightforward, transparent rates. For example, group food orders or
+                        concert
+                        tickets routed through our partnered merchants can earn up to 5–6% cashback, compared to the
+                        1–2% you
+                        might see on standard debit cards. Instead of losing track of “who earned what,” our algorithm
+                        splits
+                        the rewards proportionally across contributors. This means if four housemates spend $200 on
+                        groceries
+                        together, each person gets their share of the cashback without manual tracking.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="p-3 fee-center">
+                    <div class="maintypography" style="font-size: 30px;">
+                      <span>Fee structure</span>
+                    </div>
+                    <div class="fee text-center mx-auto d-flex flex-column align-items-center">
+                      <div class="icon-wrap" style="color: blue; font-size: 22px;">$
+                      </div>
+                      <div class="stat-value">$0</div>
+                      <div class="stat-desc">Hidden Fees</div>
+                    </div>
+                    <div class="writeup typography">
+                      <p>Our transparent fee structure includes: no monthly subscription fees, no card issuance costs,
+                        no
+                        inactivity penalties, and no transaction
+                        markups on domestic transfers. Group Wallets are always free to create and maintain, and instant
+                        payments between members via the New Payments Platform (NPP/Osko) are processed at no cost. We
+                        only ever
+                        charge for specific, clearly disclosed services — such as foreign currency conversions at
+                        wholesale FX
+                        +0.5% or cash advance withdrawals via ATM rails. Credit card is 2.5%</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="p-3 fee-right">
+                    <div class="maintypography" style="font-size: 30px; color: white;">
+                      <span>Interest and pricing</span>
+                    </div>
+                    <div class="fee text-center mx-auto d-flex flex-column align-items-center">
+                      <div class="icon-wrap" style="color: blue; font-size: 22px;">%
+                      </div>
+                      <div class="stat-value">3.5% p.a.</div>
+                      <div class="stat-desc">Interest on liquid cash</div>
+                    </div>
+                    <div class="writeup typography">
+                      <p>Interest is distributed equally every month, 80% of the earned interest flows back to the
+                        group. No
+                        minimum balance requirements. IOU’s core features — group wallets, domestic
+                        transfers, and basic transaction tracking — are always free, moving up to $30,000/month.
+                        Premium features when groups handle higher transaction volumes, or require
+                        advanced tools, automated reconciliation, priority settlements, and multi-admin
+                        permissions start at $39.99/month, scaling to $259.99/month for high-volume groups managing
+                        $100,000+ monthly. International payments carry a 0.5% FX markup (mid-market rate). Special
+                        consideration $1,000,000AUD+ applies.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </section>
+
+            <div class="scrollincentive">
+            </div>
+</body>
+
+<footer id="footer">
+
+  <div class="FAQ" id="faq-section">
+    <!-- Header -->
+    <div class="FAQheadline">
+      <img src="images/questionicon.png" style="height: 4rem; width: 4rem;">
+      <h1 class="title" style="font-size: 2.25rem; font-weight: 700; color: #111827; margin-bottom: 1rem;">Frequently
+        Asked Questions</h1>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFAQ(1)">
+          <h3 class="faq-question">How is IOU different from regular money transfer apps?</h3>
+          <svg class="chevron" id="chevron-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <polyline points="6,9 12,15 18,9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer" id="answer-1">
+          <div class="faq-answer-content">
+            <div class="faq-answer-border">
+              <p class="faq-answer-text">
+                Unlike PayID, bank transfers, or split-bill apps, IOU is group-first. Instead of one person paying
+                upfront and chasing repayments, everyone commits before the purchase pre-TRX. Funds are pooled into
+                secure group wallets via an attached virtual card — no stress, no chasing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFAQ(2)">
+          <h3 class="faq-question">Is my money safe with IOU?</h3>
+          <svg class="chevron" id="chevron-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <polyline points="6,9 12,15 18,9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer" id="answer-2">
+          <div class="faq-answer-content">
+            <div class="faq-answer-border">
+              <p class="faq-answer-text">
+                Yes. IOU works with licensed Australian financial institutions and regulated payment providers. Group
+                funds are kept in segregated accounts and all payments are processed through PCI-DSS certified partners.
+                We also comply with AUSTRAC rules to prevent fraud and money laundering.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFAQ(3)">
+          <h3 class="faq-question">Who can use IOU?</h3>
+          <svg class="chevron" id="chevron-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <polyline points="6,9 12,15 18,9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer" id="answer-3">
+          <div class="faq-answer-content">
+            <div class="faq-answer-border">
+              <p class="faq-answer-text">
+                IOU is designed for anyone who regularly spends in groups — friends ordering food, housemates splitting
+                groceries, clubs collecting event money, or teams pooling for tickets and trips. If you’ve ever fronted
+                money and waited to be repaid, IOU is built for you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="finalcall" style="display: flex; justify-content: center; align-items: center; height: 600px;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+
+      <!-- Text -->
+      <div class="followup">
+        <h1 class="title-line maintypography">Join in a</h1>
+      </div>
+      <div class="punch">
+        <h1 class="title-line maintypography">heartbeat.</h1>
+      </div>
+
+      <!-- QR Image -->
+      <img src="images/heartqr.png" style="height: 16rem; width: 16rem; margin-top: 30px;">
+    </div>
+  </div>
+
+  <div class="base">
+    <img src="images/header/HeaderIOU.png" width="120" height="120" style="float: right; margin: 20px 20px auto auto">
+    <p style="padding-top: 20px; padding-left: 20px;">Designed and Developed by Sidhanth Daniel</p><br>
+    <div class="footertext"
+      style="font-family: Inter, Inter Placeholder, sans-serif; font-weight: 500; font-size: 13px; color: gray; margin: 5vh 10vw auto 10vw; padding-bottom: 30px;">
+      <center>
+        <p>IOU is a financial technology company and not a bank. Payment and wallet services are provided by licensed
+          Australian financial institutions and regulated partners. Funds held in IOU group wallets are safeguarded in
+          segregated accounts with authorised deposit-taking institutions (ADIs) and may be eligible for protection
+          under
+          the
+          Australian Financial Claims Scheme (FCS), subject to conditions.</p><br>
+
+        <p>The IOU virtual/group payment card is issued through licensed payment partners and can be used wherever the
+          network
+          (e.g., Visa/Mastercard) is accepted. All card processing is routed through PCI-DSS certified providers. IOU
+          complies
+          with AUSTRAC obligations for KYC/AML and operates under applicable ASIC/payments regulations.</p><br>
+
+        © 2025 IOU Technologies Pty Ltd. All rights reserved.
+      </center>
+    </div>
+  </div>
+</footer>
+
+<js>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+  <script note="headerfadein">
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('loaded');
+    });
+  </script>
+</js>
+
+</html>

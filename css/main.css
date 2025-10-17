@@ -1,0 +1,418 @@
+html, body {
+  scroll-behavior: smooth;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    height: 2000px;
+    opacity: 0;               /* Start invisible */
+    transition: opacity 2s ease; /* Smooth fade */
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;             /* Fade to fully visible */
+  }
+}
+
+.maintypography {
+    font-family: "Inter", "Inter Placeholder", sans-serif;
+    color: white;
+    text-align: center;
+    font-size: clamp(40px, 10vw, 80px);
+    letter-spacing: 3px;
+    line-height: 1em;
+    font-weight: 700;
+}
+
+.typography {
+  font-family: "Inter", "Inter Placeholder", sans-serif; /* match maintypography */
+  color: #fff;
+  text-align: center;
+  font-size: clamp(1rem, 1.3vw, 1.25rem); /* smaller than headline but responsive */
+  letter-spacing: 2px; /* like maintypography but smaller */
+  line-height: 1.5; /* good for body text */
+  font-weight: 600; /* match headline weight */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+/* Killer case section */
+
+section.killercase {
+    width: 100%;
+    padding: 50px 0;
+    box-sizing: border-box;
+}
+
+/* Problem blocks */
+.problem1,
+.problem2 {
+    position: relative;
+    width: 90%;
+    margin: 50px auto; /* center horizontally */
+    border-radius: 20px;
+    background: white;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; /* ensures rounded corners clip children */
+    padding: 30px 20px; /* add spacing inside */
+}
+
+/* Specific backgrounds */
+.problem1 {
+    background-image: url('../images/linebackground.jpg');
+}
+
+.problem2 {
+    background-image: url('../images/linebackground2.png');
+}
+
+/* Remove fixed height to make it responsive */
+.problem1 .problem-content,
+.problem2 .problem-content {
+    min-height: 300px; /* optional for visual consistency */
+}
+
+/* Keep text and image flex layouts responsive */
+.problem-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.problem-content.reverse {
+    flex-direction: row-reverse;
+}
+
+.problem-image {
+    flex: 1 1 300px;
+}
+
+.problem-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* How it works section */
+
+.howitworks {
+    background-color: black;
+    height: auto;
+    margin-bottom: 50px;
+    --backgroundfirstrow: linear-gradient(white 0%, white 70%, #00F0FF);
+    --backgroundsecondrow: linear-gradient(170deg,#ffffff 0%,#ffe6f9 70%,#ff99f2 85%,#ff00f7 100%);
+    --backgroundthirdrow: linear-gradient(#ffffff 0%, #ffffff 50%, #ffd1a3 80%, #ff944d 100%);
+}
+
+/* ---- Desktop: keep the same visual size but use min-height (safer) ---- */
+@media (min-width: 992px) {
+  section.howitworks .firstrow-left,
+  section.howitworks .firstrow-center,
+  section.howitworks .firstrow-right {
+    background: var(--backgroundfirstrow);
+    min-height: 600px;     /* desktop visual height preserved */
+    max-height: 600px;
+    height: auto;
+    border-radius: 50px;
+  }
+
+  section.howitworks .secondrow {
+    background: var(--backgroundsecondrow);
+    min-height: 500px;
+    max-height: 600px;
+    border-radius: 50px;
+  }
+
+  section.howitworks .thirdrow-left,
+  section.howitworks .thirdrow-center {
+    background: var(--backgroundthirdrow);
+    min-height: 400px;
+    height: auto;
+    border-radius: 50px;
+  }
+  section.howitworks .thirdrow-right {
+    background: linear-gradient(#ffffff 0%, #ffffff 50%, #acffbb 80%, #69ff4e 100%);
+    min-height: 400px;
+    height: auto;
+    border-radius: 50px;
+  }
+}
+
+/* ---- Mobile / tablet - Bootstrap */
+@media (max-width: 991px) {
+  section.howitworks .firstrow-left,
+  section.howitworks .firstrow-center,
+  section.howitworks .firstrow-right {
+    height: auto !important;
+    min-height: 60vh !important;    /* tall enough on narrow screens */
+    border-radius: 50px;
+    background: var(--backgroundfirstrow);
+  }
+
+  section.howitworks .secondrow {
+    height: auto !important;
+    min-height: 80vh !important;
+    max-height: 140vh;
+    border-radius: 50px;
+    background: var(--backgroundsecondrow);
+  }
+
+  section.howitworks .thirdrow-left {
+    height: auto !important;
+    min-height: 25vh !important;
+    border-radius: 50px;
+    background: var(--backgroundthirdrow);
+  }
+
+  section.howitworks .thirdrow-center {
+    height: auto !important;
+    min-height: 25vh !important;
+    border-radius: 50px;
+    background: var(--backgroundthirdrow);
+  }
+
+  section.howitworks .thirdrow-right {
+    height: auto !important;
+    min-height: 60vh !important;
+    border-radius: 50px;
+    background: linear-gradient(white 0%, white 80%, #39FF14);
+  }
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(to top, #ffffff 0%, #ffffff 50%, #3b82f6 100%);
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(119, 102, 102, 0.132);
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 80px;
+    height: 80px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    width: 60px;
+    height: 60px;
+    top: 80%;
+    left: 20%;
+    animation-delay: 1s;
+}
+
+.shape-4 {
+    width: 100px;
+    height: 100px;
+    top: 10%;
+    right: 30%;
+    animation-delay: 0s;
+}
+
+.shape-5 {
+    width: 140px;
+    height: 140px;
+    top: 20%;
+    left: 85%;
+    animation-delay: 1s;
+}
+
+.shape-6 {
+    width: 80px;
+    height: 80px;
+    top: 70%;
+    left: 20%;
+    animation-delay: 2s;
+}
+
+.shape-7 {
+    width: 120px;
+    height: 120px;
+    top: 50%;
+    left: 40%;
+    animation-delay: 0s;
+}
+
+.shape-8 {
+    width: 50px;
+    height: 50px;
+    top: 70%;
+    right: 22%;
+    animation-delay: 1s;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.hero-title {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: slideUp 1s ease 0.2s forwards;
+}
+
+.title-line {
+    font-family: inherit;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #4a5568;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: slideUp 1s ease 0.4s forwards;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: slideUp 1s ease 0.6s forwards;
+}
+
+.primary-button {
+    background: linear-gradient(to right, #6672f4, #0843e6);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.primary-button.large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.2rem;
+}
+
+.button-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.primary-button:hover .button-glow {
+    left: 100%;
+}
+
+.secondary-button {
+    background: transparent;
+    color: #6672f4;
+    border: 2px solid #6672f4;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.secondary-button:hover {
+    background: #667eea;
+    color: white;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.outline-button {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.outline-button:hover {
+    background: #667eea;
+    color: white;
+}
+
+.outline-button.large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.2rem;
+}
+
+.play-icon {
+    width: 0;
+    height: 0;
+    border-left: 8px solid currentColor;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
