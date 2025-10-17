@@ -115,8 +115,8 @@ section.killercase {
   section.howitworks .firstrow-center,
   section.howitworks .firstrow-right {
     background: var(--backgroundfirstrow);
-    min-height: 600px;     /* desktop visual height preserved */
-    max-height: 600px;
+    min-height: 750px;     /* desktop visual height preserved */
+    max-height: 750px;
     height: auto;
     border-radius: 50px;
   }
@@ -149,7 +149,7 @@ section.killercase {
   section.howitworks .firstrow-center,
   section.howitworks .firstrow-right {
     height: auto !important;
-    min-height: 60vh !important;    /* tall enough on narrow screens */
+    min-height: 750px !important;    /* tall enough on narrow screens */
     border-radius: 50px;
     background: var(--backgroundfirstrow);
   }
@@ -417,3 +417,4 @@ section.killercase {
     border-bottom: 5px solid transparent;
 
 }
+
