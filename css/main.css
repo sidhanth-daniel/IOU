@@ -156,7 +156,7 @@ section.killercase {
 
   section.howitworks .secondrow {
     height: auto !important;
-    min-height: 80vh !important;
+    min-height: 140vh !important;
     max-height: 140vh;
     border-radius: 50px;
     background: var(--backgroundsecondrow);
@@ -417,5 +417,6 @@ section.killercase {
     border-bottom: 5px solid transparent;
 
 }
+
 
 
