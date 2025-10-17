@@ -34,7 +34,7 @@ body {
   text-align: center;
   font-size: clamp(1rem, 1.3vw, 1.25rem); /* smaller than headline but responsive */
   letter-spacing: 2px; /* like maintypography but smaller */
-  line-height: 1.5; /* good for body text */
+  line-height: 1; /* good for body text */
   font-weight: 600; /* match headline weight */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -415,4 +415,5 @@ section.killercase {
     border-left: 8px solid currentColor;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
+
 }
